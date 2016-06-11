@@ -164,7 +164,7 @@ function OnActorBirth(so_handle)
 {
     Game_NC_ShowNotification("onactorRB ", 1.4);
     local atype = Actor_GetActorType(so_handle);
-    if(player_handle == null && atype.find("player-") != null)
+    if(player_handle == null && atype.find("player") != null)
     {
         player_handle = so_handle;
     }
