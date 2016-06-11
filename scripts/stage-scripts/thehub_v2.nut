@@ -1,7 +1,8 @@
  
 Include("scripts/libs/lib_dungeonlib.nut");
+Include("scripts/libs/lib_rect.nut");
 
- local objects = {"actors/autoturret-playerowned.xml":{"price":100, "display_name":"Auto Turret", "pre_build_model":"actors/autoturret-playerowned-ghost.xml"},"actors/ability-mine.xml":{"price":15, "display_name":"Mine", "pre_build_model":"actors/autoturret-playerowned-ghost.xml"}};
+local objects = {"actors/autoturret-playerowned.xml":{"price":100, "display_name":"Auto Turret", "pre_build_model":"actors/autoturret-playerowned-ghost.xml"},"actors/ability-mine.xml":{"price":15, "display_name":"Mine", "pre_build_model":"actors/autoturret-playerowned-ghost.xml"}};
  
 
 
@@ -34,7 +35,11 @@ class Player
             }
         }
     }
-    
+
+    function getPreModel(){
+        return new_soh;
+    }
+
     function addCredits(amount)
     {
         credits += amount;
@@ -152,12 +157,13 @@ class Player
         
             Actor_SetTargetAngle(new_soh2, ob_angle);
         } else {
-             Game_NC_ShowNotification("Not enough credits!", 1.4);
+            Game_NC_ShowNotification("Not enough credits!", 1.4);
         }
     }
 
     function buildPreModel(){
          if(!playerhandle) return;
+
           local ob_pos = StageObject_GetStagePosition(playerhandle);
           local ob_angle = Actor_GetTargetAngle(playerhandle);
 
@@ -173,6 +179,7 @@ class Player
         new_soh = Stage_CreateActor(object, ob_pos[0], ob_pos[1], 0);
 
         }
+        StageObject_SetAngle(new_soh, ob_angle);
         Actor_SetTargetAngle(new_soh, ob_angle);
 
     }
@@ -202,6 +209,9 @@ function OnActorBirth(so_handle)
     {
         player_handle = so_handle;
     }
+
+
+
    
 }
 
@@ -225,6 +235,8 @@ function OnUpdate(tdelta)
 {
 
 }
+
+
  
 function OnDraw()
 {
@@ -238,10 +250,48 @@ function OnDraw()
     if(player)
     {
         player.draw(330, 70);
+
+            if (player.getCurrentBuildItem() != null){
+                // We wouldn't have to build this only to potentially remove it a bit later
+                player.buildPreModel();
+                 local pm = player.getPreModel();
+                    if (pm != null){
+                        local pm_pos = StageObject_GetPosition(pm);
+                        local pm_dim = ActorType_GetBoundingBoxDimensions (Actor_GetActorType(pm));
+                        local cobjects = Stage_QueryStageObjectsInsideRectangle(pm_pos[0],pm_pos[1] pm_dim[0], pm_dim[1]);
+                        NX_Print("ocount:" + cobjects.len());
+                        local candraw = true;
+                        foreach(handle in cobjects)
+                        {
+                            NX_Print("for");
+                            local atype = Actor_GetActorType(handle);
+                            candraw = getTypeWithName(atype);
+
+                            NX_Print("type: " + type);
+                            NX_Print("atype: " + atype);
+                            if (!candraw){
+                               Stage_DeleteStageObject(pm);
+                               pm = null;
+                               break;
+                            }
+                        }
+
+                    }
+            }
     }
 
-    if (player.getCurrentBuildItem() != null){
-        player.buildPreModel()
-    }
+
     
 }
+
+function getTypeWithName(atype)
+    {
+
+        if(atype.find("cable") == null && atype.find("ghost") == null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
