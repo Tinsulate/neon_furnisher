@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<array id="CHARACTER">
+
+		<node id="name" value="Defender" />
+		<node id="role" value="CYBER_PSYCHO" actor_number="2" />
+		<node id="ability" value="OFFENSIVE_GRENADES" />
+		<node id="weapon" value="weapons/smg-laser.xml" />
+
+        <node id="stat_HEALTH" value="0" />
+		<node id="stat_ENERGY" value="0" />
+		<node id="stat_DAMAGE" value="0" />
+		<node id="stat_CRITS" value="0" />
+		<node id="stat_SLOTS" value="0" />
+
+	</array>
+</root>

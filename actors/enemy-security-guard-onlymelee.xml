@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+
+	<array id="ACTOR">
+		<node id="PARAMETERS" 
+		 physics_material="FLESH" 
+		 name="Security guard" 
+		 renderer="Humanoid" 
+		 ai="Humanoid" 
+		 weapon="weapons/stun-baton-weak.xml" 
+		 friend_group="ENEMIES" 
+		 turn_speed="2.8" 
+		 move_speed="220" 
+		 move_acceleration="1900" 
+		 dampening_factor="8.0" 
+		 restitution_coefficient="0.15" 
+		 scale="1.0" 
+		 aggro_radius="800" 
+		 friend_avoidance_radius="10" 
+		 model_idle="models/security-guard.xml" 
+		 bitmap_shadow="shadows/shadow-circle.png" 
+		 shadow_angle="0" 
+		 shadow_scale="0.7" 
+		 shadow_alpha="0.75" 
+		 hit_points="30" 
+		 move_animation_playback_speed="0.8" 
+		 death_animation_playback_speed="1" 
+		 walk_forward_animation="models/animations/humanoid_rig-humanoid_walk_forward_melee.xml" 
+		 walk_backward_animation="models/animations/humanoid_rig-humanoid_walk_backward.xml" 
+		 walk_left_animation="models/animations/humanoid_rig-humanoid_walk_left.xml" 
+		 walk_right_animation="models/animations/humanoid_rig-humanoid_walk_right.xml" 
+		 rotate_animation="models/animations/humanoid_rig-humanoid_rotate.xml" 
+		 idle_animation="models/animations/humanoid_rig-humanoid_idle_melee.xml" 
+		 recoil_animation="models/animations/humanoid_rig-humanoid_recoil.xml" 
+		 stunned_animation="models/animations/humanoid_rig-humanoid_stunned.xml" 
+		 reload_animation="models/animations/humanoid_rig-humanoid_reload.xml"
+		/>
+
+		<node id="COLLIDER" collider_generation_method="AUTOMATIC" />
+		<node id="CUSTOM_DATA" 
+		 sound_collection="humanoid" 
+		 actor_class="organic" 
+		 has_riot_shield="false" 
+		 clip_size_multiplier="1.0" 
+		 reload_time_multiplier="1.0" 
+		 wander_radius="240" 
+		 regeneration_speed="0" 
+		 accuracy_spread_multiplier="2.5" 
+         predict_enemy_position_multiplier="1"
+		 rebound_speed_multiplier="0.5" 
+         aiming_time="0.0"
+		 melee_animation="models/animations/humanoid_rig-humanoid_melee_weapon.xml" 
+		 melee_fist_animation="models/animations/humanoid_rig-humanoid_melee_fist.xml" 
+		 melee_gun_animation="models/animations/humanoid_rig-humanoid_melee_weapon.xml" 
+         hit_animation_1="models/animations/humanoid_rig-humanoid_hit1_melee.xml" 
+		 hit_animation_2="models/animations/humanoid_rig-humanoid_hit2_melee.xml" 
+		 hit_animation_3="models/animations/humanoid_rig-humanoid_hit3_melee.xml" 
+		 hit_animation_4="models/animations/humanoid_rig-humanoid_hit4_melee.xml" 
+		 death_animation_1="models/animations/humanoid_rig-humanoid_die1_melee.xml" 
+		 death_animation_2="models/animations/humanoid_rig-humanoid_die2_melee.xml" 
+		 death_animation_3="models/animations/humanoid_rig-humanoid_die3_melee.xml" 
+		 death_animation_4="models/animations/humanoid_rig-humanoid_die4_melee.xml" 
+		 death_animation_5="models/animations/humanoid_rig-humanoid_die5_melee.xml" 
+		 death_animation_6="models/animations/humanoid_rig-humanoid_die6_melee.xml" 
+		 exit_cryocask_animation="models/animations/humanoid_rig-humanoid_exit_cryocask.xml" 
+		 falling_animation="models/animations/humanoid_rig-humanoid_die_fall_melee.xml"
+		 death_animation_angle_1="3.142"
+		 death_animation_angle_2="5.061"
+		 death_animation_angle_3="0.0"
+		 death_animation_angle_4="1.745"
+		 death_animation_angle_5="3.142"
+		 death_animation_angle_6="0.785"
+		/>
+
+	</array>
+	
+	<array id="PROPS">
+		
+		<node id="MASK_SECURITY" 
+		 bone_id="head" 
+		 model="models/prop-security-guard-mask.xml" 
+		 mount_scale="1" 
+		 mount_offset_x="0" 
+		 mount_offset_y="0" 
+		 mount_offset_z="0" 
+		/>
+
+		<node id="SHOULDER_SECURITY_L" 
+		 bone_id="arm.L" 
+		 model="models/prop-security-guard-shoulder.xml" 
+		 mount_scale="1" 
+		 mount_offset_x="0" 
+		 mount_offset_y="0" 
+		 mount_offset_z="0" 
+		/>
+		
+		<node id="SHOULDER_SECURITY_R" 
+		 bone_id="arm.R" 
+		 model="models/prop-security-guard-shoulder.xml" 
+		 mount_scale="1" 
+		 mount_offset_x="0" 
+		 mount_offset_y="0" 
+		 mount_offset_z="0" 
+		/>
+		
+	</array>
+
+	<array id="GIBS_NONE">
+		<node id="DEATH_1" 
+		 model_group_1="MEAT_SMALL,spine.001,3,BLOOD" 
+		 model_group_2="GUTS,spine.001,2,BLOOD" 
+		 particle_effect_1="effects/explosion-blood-small.xml,spine.001" 
+		 death_animations="death_animation_1,death_animation_2,death_animation_3,death_animation_4,death_animation_5,death_animation_6" 
+		/>
+
+		<node id="DEATH_2" 
+		 model_group_1="MEAT_LARGE,spine,3,BLOOD" 
+		 model_group_2="GUTS,spine,3,BLOOD" 
+		 particle_effect_1="effects/explosion-blood-small.xml,spine.001" 
+		 death_animations="death_animation_1,death_animation_2,death_animation_3,death_animation_4,death_animation_5,death_animation_6" 
+		/>
+
+	</array>
+
+	<array id="GIBS_PARTIAL">
+		<node id="MISSING_LEFT_ARM" 
+		 model="models/security-guard-missing-left-arm.xml" 
+		 model_group_1="SECURITY_GUARD_ARM,arm.001.L,3,BLOOD" 
+		 model_group_2="MEAT_SMALL,arm.001.L,3,BLOOD" 
+		 model_group_3="MEAT_LARGE,arm.L,3,BLOOD" 
+		 particle_effect_1="effects/explosion-blood-small.xml,arm.L" 
+		 death_animations="death_animation_1,death_animation_2,death_animation_3,death_animation_4,death_animation_5,death_animation_6" 
+		/>
+
+		<node id="MISSING_TORSO" 
+		 model="models/security-guard-missing-torso.xml" 
+		 model_group_1="SECURITY_GUARD_TORSO,spine.001,6,BLOOD" 
+		 model_group_2="GUTS,spine.001,3,BLOOD" 
+		 model_group_3="MEAT_LARGE,spine.001,6,BLOOD" 
+		 model_group_4="MEAT_SMALL,spine.001,6,BLOOD" 
+		 model_group_5="BRAIN,head,3,BLOOD" 
+		 model_group_6="SECURITY_GUARD_HEAD,head,3,BLOOD" 
+		 model_group_7="SECURITY_GUARD_ARM,arm.001.L,3,BLOOD" 
+		 model_group_8="SECURITY_GUARD_ARM,arm.001.R,3,BLOOD" 
+		 particle_effect_1="effects/explosion-blood-large.xml,spine.001" 
+		 death_animations="death_animation_1,death_animation_2,death_animation_3,death_animation_4,death_animation_5,death_animation_6" 
+		 remove_weapon="true" 
+		/>
+
+		<node id="HOLE_IN_TORSO" 
+		 model="models/security-guard-hole-in-torso.xml" 
+		 model_group_1="SECURITY_GUARD_TORSO,spine.001,6,BLOOD" 
+		 model_group_2="GUTS,spine.001,3,BLOOD" 
+		 model_group_3="MEAT_LARGE,spine.001,3,BLOOD" 
+		 model_group_4="MEAT_SMALL,spine.001,3,BLOOD" 
+		 particle_effect_1="effects/explosion-blood-large.xml,spine.001" 
+		 death_animations="death_animation_1,death_animation_2,death_animation_3,death_animation_4,death_animation_5,death_animation_6" 
+		/>
+
+		<node id="HEADLESS" 
+		 model="models/security-guard-headless.xml" 
+		 model_group_1="BRAIN,head,3,BLOOD" 
+		 model_group_2="MEAT_SMALL,head,3,BLOOD" 
+		 model_group_3="SECURITY_GUARD_HEAD,head,3,BLOOD" 
+		 particle_effect_1="effects/explosion-blood-small.xml,head" 
+		 death_animations="death_animation_1,death_animation_2,death_animation_3,death_animation_4,death_animation_5,death_animation_6" 
+		/>
+
+	</array>
+
+	<array id="GIBS_FULL">
+		<node id="EXPLOSION_1" 
+		 model_group_1="SECURITY_GUARD_TORSO,spine.001,4,BLOOD" 
+		 model_group_2="GUTS,spine,3,BLOOD" 
+		 model_group_3="MEAT_LARGE,spine.001,4,BLOOD" 
+		 model_group_4="SECURITY_GUARD_HEAD,head,3,BLOOD" 
+		 model_group_5="BRAIN,head,3,BLOOD" 
+		 model_group_6="SECURITY_GUARD_LEG,leg.L.001,3,BLOOD" 
+		 model_group_7="SECURITY_GUARD_LEG,leg.R.001,3,BLOOD" 
+		 model_group_8="SECURITY_GUARD_ARM,arm.001.L,3,BLOOD" 
+		 model_group_9="SECURITY_GUARD_ARM,arm.001.R,3,BLOOD" 
+		 particle_effect_1="effects/explosion-blood-large.xml,spine.001" 
+		 death_animations="" 
+		 remove_weapon="true" 
+		/>
+
+		<node id="EXPLOSION_2" 
+		 model_group_1="SECURITY_GUARD_TORSO,spine.001,4,BLOOD" 
+		 model_group_2="GUTS,spine,3,BLOOD" 
+		 model_group_3="MEAT_LARGE,spine,4,BLOOD" 
+		 model_group_4="MEAT_LARGE,spine.001,4,BLOOD" 
+		 model_group_5="SECURITY_GUARD_HEAD,head,4,BLOOD" 
+		 model_group_6="BRAIN,head,3,BLOOD" 
+		 model_group_7="SECURITY_GUARD_LEG,leg.L.001,3,BLOOD" 
+		 model_group_8="SECURITY_GUARD_LEG,leg.R.001,3,BLOOD" 
+		 model_group_9="SECURITY_GUARD_ARM,arm.001.L,3,BLOOD" 
+		 model_group_10="SECURITY_GUARD_ARM,arm.001.R,3,BLOOD" 
+		 particle_effect_1="effects/explosion-blood-large.xml,spine.001" 
+		 death_animations="" 
+		 remove_weapon="true" 
+		/>
+
+	</array>
+</root>

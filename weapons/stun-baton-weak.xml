@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	<array id="WEAPON">
+		<node id="PARAMETERS"
+
+			name="Stun Baton"
+			bm_icon=""
+			snd_fire="sfx/weapons/stab"
+			snd_reload="sfx/weapons/autorifle_reload"
+
+            type="WEAPON_TYPE_MELEE"
+
+			projectile_actor=""
+			damage="5"
+
+			projectiles_per_shot="1"
+			projectile_range="300"
+			projectile_range_random="0.1"
+			projectile_angle_spread="0"
+
+			min_accuracy_spread="0.2"
+			moving_accuracy_spread="10"
+			max_accuracy_spread="45"
+			recoil="0"
+			rebound_speed="1.0"
+
+			shot_interval="0.5"
+			ammo_cost_per_shot="0"
+
+			reload_time="0.1"
+			reload_size="40"
+			clip_size="40"
+
+			projectile_speed="900"
+			projectile_speed_random="0.1"
+
+			trail_length="60"
+			trail_thickness="0.5"
+			trail_alpha="1"
+
+			move_speed_modifier="1"
+
+			model="models/stun-baton.xml"
+
+		/>
+
+	</array>
+</root>
+

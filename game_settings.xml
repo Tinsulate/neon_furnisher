@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+    <!-- rarity is x per 1000 -->
+	<array id="LEVEL_MODIFIERS">
+    
+       <!-- implemented -->
+
+		<node id="LEVELMOD_MINEFIELD" rarity="20" title="Mines!" description="The Overseer has spread mines through the whole floor!"   min_playthrough="0"  levels_with_support="generator-gen1.nut,generator-gen2.nut,generator-gen4.nut,generator-3x3-snake.nut" />
+		<node id="LEVELMOD_MASSACRE" rarity="20" title="Crime Against Humanity" description="Something has slain all civilians on the level. Must be something quite powerful..."  min_playthrough="0"  levels_with_support="generator-3x3-snake.nut" />
+		<node id="LEVELMOD_EXPLOSIVES" rarity="20" title="Explosive Storage" description="Somebody has wired this floor to explode - be careful!" min_playthrough="0" levels_with_support="generator-3x3-snake.nut" />
+		<node id="LEVELMOD_EERIE_SILENCE" rarity="10" title="Eerie Silence" description="It is unusually quiet in here..."  min_playthrough="0"  levels_with_support="generator-gen1.nut,generator-gen2.nut,generator-gen4.nut,generator-3x3-snake.nut" />
+		<node id="LEVELMOD_MASSIVE" rarity="20" title="Massive" description="The floor is huge but enemy activity is low."  min_playthrough="0"  levels_with_support="generator-gen1.nut,generator-gen2.nut,generator-gen4.nut" />
+        <node id="LEVELMOD_TAG_TEAMS" rarity="10" title="Tag Teams" description="Overseer is sending troops from entry and exit elevators!"  min_playthrough="0"  levels_with_support="generator-gen1.nut,generator-3x3-snake.nut" />
+        <node id="LEVELMOD_DARKNESS" rarity="20"  title="Lights Out" description="It seems the power grid is shaky on the level. General lightning has been switched off."  min_playthrough="0"   levels_with_support="generator-gen1.nut,generator-gen2.nut" />
+        <!-- ideas -->
+        <node id="LEVELMOD_RADIOACTIVE" rarity="3" title="Radioactivity" description="The level is bathed in radioactivity. You'll lose health slowly over time but for some reason credit loot is tripled."  min_playthrough="1"  levels_with_support="" />
+        <node id="LEVELMOD_MEDI_SPIDERS" rarity="1" title="Medi Spiders" description="The level is infested with medi spiders. They hit extremely hard and have higher HP. They also drop medikits."  min_playthrough="1"  levels_with_support="" />
+		<node id="LEVELMOD_OVERDRIVE" rarity="1" title="Overdrive" description="The level is experiencing some kind of energy surge. It seems you have unlimited energy but everyone else has gained some new abilities as well..."  min_playthrough="1"  levels_with_support="" />
+		<node id="LEVELMOD_SWAP_TRIGGERS" rarity="1" title="Dazed" description="The elevator malfunctioned and you hit your head. Something doesn't feel right..." min_playthrough="1"  levels_with_support="" /> <!-- swaps shoot and ability buttons -->
+		<node id="LEVELMOD_UNDERCONSTRUCTION" rarity="2" title="Under Construction" description="It seems this flooor is under construction. Stuff like doors might be missing."   min_playthrough="1"  levels_with_support="" />
+		<node id="LEVELMOD_NEAR_EXIT" rarity="2" title="Elevator Oddity" description="It seems you've arrived at the exit elevator. You could try grabbing the loot or just move forwards..."   min_playthrough="1" levels_with_support="" />
+		<node id="LEVELMOD_RANDOM_ENTRY" rarity="2" title="Random Entry" description="For some unexplained reason you just appeared somewhere in the middle of level." min_playthrough="1" levels_with_support="" />
+       
+        <node id="LEVELMOD_DISABLE_HUD" rarity="1"  title="Messy Cybernetics" description="Something is messing with your tactial implant. All information from HUD is disabled."   min_playthrough="1"  levels_with_support="" />
+        <node id="LEVELMOD_DISABLE_ABILITY" rarity="3" title="Something in the Air" description="There's something in the air tonight and it's making you dizzy. Your ability is disabled for this level."    min_playthrough="1"  levels_with_support="" />
+        <node id="LEVELMOD_SPIDER_NEST" rarity="5" title="Spider's Nest" description="Oh crap - this level looks like a spider's nest. All spiders are 150% size and have 5x health." min_playthrough="1"  levels_with_support="" />
+        <node id="LEVELMOD_WEAPON_JAM" rarity="3" title="Weapon Hacked" description="Something hacked your weapon. However, your melee attack does 10x damage and your energy reserves are unlimited." min_playthrough="1" levels_with_support="" />
+	</array>
+	
+  
+    <!-- rarity is x per 1000 levels   -->
+    
+    <array id="SPAWN_TAGS">
+        <node id="CYBER_UPGRADE" rarity="850" min_level="1" />
+        <node id="WEAPON_CRATE" rarity="430" min_level="1" />
+        <node id="WEAPON_UPGRADE" rarity="430" min_level="2" />
+        <node id="AUTODOC" rarity="375" min_level="2" />
+        <node id="PREMIUM_BOX" rarity="200" min_level="1"/>
+        <node id="SPECIAL_LEVEL_ENTRANCE" rarity="350" min_level="2" min_deaths="4"/>
+        <node id="UNLOCK_BOX" rarity="500" min_level="2" />
+    </array>
+
+	<array id="MISC_SETTINGS">
+    
+        <node id="LEVEL_MODS_MIN_DEATHS_GLOBAL" value="4" />  <!-- in use -->
+        
+		<node id="DAMAGE_MULTIPLIER_PER_100_LEVELS" value="6" />  <!-- in use -->
+        <node id="CRITICAL_MULTIPLIER_PER_100_LEVELS" value="1.6" /> <!-- in use --> 
+		<node id="HEALTH_INCREASE_PER_100_LEVELS" value="800" /> <!-- in use -->
+        <node id="ENERGY_INCREASE_PER_100_LEVELS" value="550" /> <!-- in use -->
+        
+        <node id="ENHANCEMENTS_SLOTS_AT_START" value="3" /> <!-- in use -->
+        <node id="MAX_ENHANCEMENT_SLOTS" value="10" /> <!-- in use -->
+
+        <node id="DAMAGE_START_PRICE" value="200" /> <!-- in use -->
+        <node id="DAMAGE_PRICE_MULTIPLIER" value="100" /> <!-- in use -->
+        <node id="CRITICAL_START_PRICE" value="200" /> <!-- in use -->
+        <node id="CRITICAL_PRICE_MULTIPLIER" value="40" /> <!-- in use -->
+        <node id="HEALTH_START_PRICE" value="200" /> <!-- in use -->
+        <node id="HEALTH_PRICE_MULTIPLIER" value="80" /> <!-- in use -->
+        <node id="ENERGY_START_PRICE" value="200" /> <!-- in use -->
+        <node id="ENERGY_PRICE_MULTIPLIER" value="30" /> <!-- in use -->
+        <node id="ENHANCEMENT_SLOT_START_PRICE" value="600" /> <!-- in use -->
+        <node id="ENHANCEMENT_SLOT_PRICE_MULTIPLIER" value="300" /> <!-- in use -->
+		
+        <node id="WEAPON_SHOT_INTERVAL_DECREASE_PERCENTAGE_PER_LEVEL" value="0.05" /> <!-- in use -->
+        <node id="WEAPON_DAMAGE_INCREASE_PERCENTAGE_PER_LEVEL" value="0.05" /> <!-- in use -->
+        <node id="WEAPON_RELOAD_TIME_DECREASE_PERCENTAGE_PER_LEVEL" value="0.06" /> <!-- in use -->
+        <node id="WEAPON_CLIP_SIZE_PERCENTAGE_INCREASE_PER_LEVEL" value="0.1" /> <!-- in use -->
+        <node id="WEAPON_CRIT_CHANCE_PERCENTAGE_INCREASE_PER_LEVEL" value="0.40" /> <!-- in use -->
+        
+		<!-- this could be changed with luck 0-100 to increase max twofold, multiplier 1+(luck/100), 50 would be 1.5x,  80 would be 1.8x-->
+		
+		<node id="LOOT_MULTIPLIER_PER_25_LEVELS" value="1.6" />  <!-- in use -->
+		
+		<!-- this could be changed with luck 0-100: 1600-(luck*10), at level 30 it would be 1300 -->
+		<node id="LOOT_PROBABILITY_COMMON" value="1600" /> <!-- in use -->
+		<node id="LOOT_PROBABILITY_UNCOMMON" value="0" /> <!-- in use -->
+		<node id="LOOT_PROBABILITY_RARE" value="0" /> <!-- in use -->
+		<node id="LOOT_PROBABILITY_MYTHIC" value="0" /> <!-- in use -->
+		
+		<node id="LOOT_MULTIPLIER_COMMON" value="1" /> <!-- in use -->
+		<node id="LOOT_MULTIPLIER_UNCOMMON" value="3" /> <!-- in use -->
+		<node id="LOOT_MULTIPLIER_RARE" value="6" /> <!-- in use -->
+		<node id="LOOT_MULTIPLIER_MYTHIC" value="12" /> <!-- in use -->
+		
+		<node id="LOOT_LUCK_LOOT_MULTIPLIER_DIVISOR" value="100" /> <!-- in use -->
+		<node id="LOOT_COMMON_LUCK_DECREASE_MULTIPLIER" value="10" /> <!-- in use -->
+		
+		<node id="LOOT_ENERGY_OR_CREDITS_RATIO" value="0" /> <!-- in use -->
+		
+		<node id="LOOT_CREDITS_TO_ENERGY_CONVERSION_RATIO" value="0" /> <!-- in use -->
+
+		<node id="HP_TO_LOOT_VALUE_DIVIDER" value="10000" /> <!-- in use -->
+
+		<node id="NUMBER_OF_SELECTABLE_ENHANCEMENTS" value="3" />  <!-- in use -->
+        
+        <node id="ABILITIES_STUN_PULSE_MAX_RADIUS" value="550" />  <!-- in use -->
+		
+		<node id="LAST_CHANCE_MEDIKIT_PROBABILITY" value="0.25" /><!-- in use -->
+		
+		
+		<node id="LAST_CHANCE_MEDIKIT_HP_THRESHOLD" value="0.07" /><!-- in use -->
+
+		<node id="CHASER_SPEED_MULTIPLIER" value="1.2" /><!-- in use -->
+
+		<node id="GRENADIER_EXPLOSION_DAMAGE" value="140" /><!-- in use -->
+		<node id="GRENADIER_EXPLOSION_RANGE" value="180" /><!-- in use -->
+		<node id="GRENADIER_EXPLOSION_TIME_IN_SECONDS" value="1" /><!-- in use -->
+
+		<node id="PIERCING_BULLET_DAMAGE_MULTIPLIER_AFTER_HIT" value="0.66" /><!-- in use -->
+
+		<node id="ASSASSIN_LIGHT_THRESHOLD" value="0.35" /><!-- in use -->
+
+		<node id="FIRE_DAMAGE_PER_SECOND_AGAINST_PLAYERS" value="20" /><!-- in use -->
+		<node id="FIRE_DAMAGE_DURATION_AGAINST_PLAYERS" value="2" /><!-- in use -->
+
+		<node id="FIRE_DAMAGE_PER_SECOND_AGAINST_ENEMIES" value="20" /><!-- in use -->
+		<node id="FIRE_DAMAGE_DURATION_AGAINST_ENEMIES" value="2" /><!-- in use -->
+
+
+		<node id="PER_LEVEL_EXTRA_HP_DIVISOR" value="200.0" /><!-- in use, for example 25/200 means level 25 enemies have 1.25x default hp and at level 9 9/200 = 1.045-->
+		<node id="PER_PLAYTHROUGH_ADDITIONAL_HP_MULTIPLIER" value="0.7" /><!-- in use -->
+		<node id="PER_PLAYTHROUGH_ADDITIONAL_SPEED_MULTIPLIER" value="0.04" /><!-- in use -->
+		<node id="PER_PLAYTHROUGH_ADDITIONAL_DAMAGE_MULTIPLIER" value="0.22" /><!-- in use -->
+		
+		<node id="BOSS_HP_MULTIPLIER_PER_EXTRA_OVERSEER_LEVEL" value="1.5" /><!-- in use -->
+
+		<node id="DEFAULT_STAT_CAP" value="100" /><!-- in use -->
+
+		<node id="COMPANION_DRONE_SCALE_MULTIPLIER" value="1.0" /><!-- in use -->
+
+		<node id="UNCHANGING_SEED" value="123" />
+		
+		<node id="XP_THEORETICAL_HP" value="20" />
+		<node id="XP_KILLS_FIRST_LEVEL" value="15" />
+		<node id="XP_CURVE_STEEPNESS" value="2.0" />
+ 
+        <!-- when over max, game gives credit box --> 
+		<node id="MAX_BOOSTERS_IN_LEVEL" value="1" /> <!-- in use -->
+        
+        <!-- range is 0 - red - red+blue - 1, if over red+blue, then green, if under red, then red, if over red but under blue+red, then blue -->
+        <node id="BOOSTER_PROBABILITY_RED" value="0.41" /> <!-- in use -->
+        <node id="BOOSTER_PROBABILITY_BLUE" value="0.31" /> <!-- in use -->
+        
+        <node id="EXPLOSIVE_BULLET_RADIUS" value="40.0" /> <!-- in use -->
+		<node id="EXPLOSIVE_BULLET_DAMAGE" value="50.0" /> <!-- in use -->
+		<node id="EXPLOSIVE_BULLET_SHRAPNEL_AMOUNT" value="15" /> <!-- in use -->
+        <node id="EXPLOSIVE_BULLET_DAMAGE_MULTIPLIER" value="1.5" /> <!-- in use -->
+        
+        
+        <node id="SPIDERBOT_EXPLOSIVES_DAMAGE_INCREASE_PER_PLAYTHROUGH" value="0.7" /> <!-- in use -->
+        <node id="SPIDERBOT_AOE_DAMAGE_INCREASE_PER_PLAYTHROUGH" value="50.0" /> <!-- in use -->
+        <node id="SPIDERBOT_AOE_RANGE_INCREASE_PER_PLAYTHROUGH" value="5.0" /> <!-- in use -->
+        <node id="SPIDERBOT_MAIN_GUN_DAMAGE_INCREASE_PER_PLAYTHROUGH" value="1.25" /> <!-- in use -->
+        <node id="SPIDERBOT_SPEED_INCREASE_PER_PLAYTHROUGH" value="0.20" /> <!-- in use -->
+        <node id="SPIDERBOT_ADVANCED_SCALING_ENABLED" value="1" /> <!-- in use -->
+        <node id="SPIDERBOT_ROCKET_PROJECTILE_DAMAGE_INCREASE" value="1.0" /> <!-- in use -->
+        
+        <node id="HOVERTANK_SECONDARY_GUN_DAMAGE_INCREASE" value="0.4" /> <!-- in use -->
+        <node id="HOVERTANK_ROCKET_PROJECTILE_DAMAGE_INCREASE" value="0.1" /> <!-- in use -->
+        <node id="HOVERTANK_EXPLOSIVES_DAMAGE_INCREASE_PER_PLAYTHROUGH" value="0.7"/> <!-- in use -->
+        <node id="HOVERTANK_MAIN_GUN_DAMAGE_INCREASE_PER_PLAYTHROUGH" value="0.4"/> <!-- in use -->
+        <node id="HOVERTANK_RAILGUN_SHOOT_INTERVAL_DECREASE" value="0.9"/> <!-- in use -->
+        <node id="HOVERTANK_DAMAGE_CURVE_SHAPE" value="0.8" /> <!-- in use -->
+        <node id="HOVERTANK_ADVANCED_SCALING_ENABLED" value="1"/> <!-- in use -->
+    
+        <node id="CARETAKER_SPEED_MULTIPLIER" value="0.4" /> <!-- in use -->
+        <node id="CARETAKER_MORTAR_DAMAGE_INCREASE" value="50" /> <!-- in use -->
+        <node id="CARETAKER_ROCKET_PROJECTILE_DAMAGE_INCREASE" value="1.0" /> <!-- in use -->
+        <node id="CARETAKER_EXPLOSIVES_DAMAGE_INCREASE_PER_PLAYTHROUGH" value="0.7"/> <!-- in use -->
+        <node id="CARETAKER_PLASMA_DAMAGE_INCREASE" value="0.7"/> <!-- in use -->
+        <node id="CARETAKER_DAMAGE_CURVE_SHAPE" value="0.8" />  <!-- NOT in use -->
+        <node id="CARETAKER_ADVANCED_SCALING_ENABLED" value="1"/> <!-- in use -->
+    
+        <node id="CENTIPEDE_KAMIKAZE_DAMAGE_INCREASE_PER_PLAYTHROUGH" value="0.7"/> <!-- in use -->
+        <node id="CENTIPEDE_MISSILE_DAMAGE_INCREASE_PER_PLAYTHROUGH" value="0.7"/> <!-- in use -->
+        <node id="CENTIPEDE_SHIELD_BLOCKED_DAMAGE_INCREASE_PER_PLAYTHROUGH" value="1.0"/> <!-- in use -->
+        <node id="CENTIPEDE_ADVANCED_SCALING_ENABLED" value="1"/> <!-- in use -->
+
+        <node id="BOSS_ELECTRIC_ARC_DAMAGE_INCREASE_PER_PLAYTHROUGH" value="0.7"/> <!-- in use -->
+        
+        <node id="ABILITY_SCALING_EXPLOSIVES_DAMAGE_PER_100_LEVELS" value="3.0" />
+        <node id="ABILITY_SCALING_SHRAPNEL_DAMAGE_PER_100_LEVELS" value="2.0" />
+        <node id="ABILITY_SCALING_PROJECTILES_PER_100_LEVELS" value="4.0" />
+        
+		<!--  maybe add credit and energy chip values here... now they're in the actor custom data, but focusing all switches here might be better -->
+		 
+		 
+    </array>
+
+</root>

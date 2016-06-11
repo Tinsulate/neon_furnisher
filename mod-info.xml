@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+
+	<array id="INFO">
+		<node id="required_program_id" value="NeonChrome" />
+		<node id="required_mod_api_version" value="1" />
+		<node id="mod_version" value="0.1.0" />
+		<node id="title" value="Neon Defender" />
+		<node id="author" value="Knotto" />
+		<node id="description" value="Defend your base from an endless horde of enemies. Place items with (c) and change item with (x)." />
+		<node id="tags" value="STANDALONE" />
+	</array>
+	
+	<array id="PLAY">
+		<node id="launch_stage" value="stages/defend_base_1.xml" />
+	</array>
+	
+	
+</root>

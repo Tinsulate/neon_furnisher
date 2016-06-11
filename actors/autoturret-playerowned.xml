@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+
+	<array id="ACTOR">
+		<node id="PARAMETERS" 
+		 physics_material="STEEL" 
+		 name="Auto Turret" 
+		 renderer="AutoTurret" 
+		 ai="AutoTurret" 
+		 weapon="weapons/autoturret-heavy-minigun.xml" 
+		 friend_group="PLAYERS" 
+		 turn_speed="6.0" 
+		 move_speed="0" 
+		 dampening_factor="8.0" 
+		 restitution_coefficient="0.15" 
+		 scale="1.0" 
+		 aggro_radius="670" 
+		 friend_avoidance_radius="10" 
+		 model_idle="models/autoturret.xml" 
+		 bitmap_shadow="shadows/shadow-circle-large.png" 
+		 shadow_angle="0" 
+		 shadow_scale="0.7" 
+		 shadow_alpha="0.75" 
+		 hit_points="150" 
+		 mass="5000" 
+		 walk_forward_animation="models/animations/autoturret_rig-autoturret_open.xml" 
+		 walk_backward_animation="models/animations/autoturret_rig-autoturret_close.xml" 
+		/>
+
+		<node id="COLLIDER" 
+		 cylinder_max_z="0" 
+		 cylinder_min_z="-100" 
+		 cylinder_radius="25" 
+		 collider_generation_method="AUTOMATIC" 
+		/>
+
+		<node id="CUSTOM_DATA" 
+		 field_of_vision="60" 
+		 reaction_delay="0.3" 
+		 clip_size_multiplier="0.5" 
+		 sound_collection="autoturret" 
+		 actor_class="robotic" 
+		 uses_path_finding="false" 
+		 accuracy_spread_multiplier="2.0" 
+		 rebound_speed_multiplier="1.0" 
+		/>
+
+	</array>
+
+	<array id="GIBS_NONE">
+		<node id="EXPLOSION_SMALL" 
+		 model_group_1="METAL_LARGE,turret,2" 
+		 model_group_2="METAL_SMALL,turret,2" 
+		 model_group_3="METAL_MISC,turret,2" 
+		 model_group_4="AUTOTURRET_BODY,turret,2" 
+		 model_group_5="AUTOTURRET_LEG,turret,2" 
+		 model_group_6="AUTOTURRET_SHIELD,gunshield.L,2" 
+		 model_group_7="AUTOTURRET_SHIELD,gunshield.R,2" 
+		 particle_effect_1="effects/explosion-generic-medium.xml" 
+		 death_animations="" 
+		/>
+
+	</array>
+
+	<array id="GIBS_PARTIAL">
+		<node id="EXPLOSION_MEDIUM" 
+		 model_group_1="METAL_LARGE,turret,3" 
+		 model_group_2="METAL_SMALL,turret,3" 
+		 model_group_3="METAL_MISC,turret,3" 
+		 model_group_4="AUTOTURRET_BODY,turret,3" 
+		 model_group_5="AUTOTURRET_LEG,turret,3" 
+		 model_group_6="AUTOTURRET_SHIELD,gunshield.L,2" 
+		 model_group_7="AUTOTURRET_SHIELD,gunshield.R,2" 
+		 particle_effect_1="effects/explosion-generic-medium.xml" 
+		 death_animations="" 
+		/>
+
+	</array>
+
+	<array id="GIBS_FULL">
+		<node id="EXPLOSION_LARGE" 
+		 model_group_1="METAL_LARGE,turret,4" 
+		 model_group_2="METAL_SMALL,turret,4" 
+		 model_group_3="METAL_MISC,turret,4" 
+		 model_group_4="AUTOTURRET_BODY,turret,4" 
+		 model_group_5="AUTOTURRET_LEG,turret,4" 
+		 model_group_6="AUTOTURRET_SHIELD,gunshield.L,3" 
+		 model_group_7="AUTOTURRET_SHIELD,gunshield.R,3" 
+		 particle_effect_1="effects/explosion-generic-medium.xml" 
+		 death_animations="" 
+		/>
+
+	</array>
+</root>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+
+	<array id="ACTOR">
+		<node id="PARAMETERS" 
+		 physics_material="STEEL" 
+		 name="Power Cell" 
+		 renderer="HackingDevice" 
+		 ai="HackingDevice" 
+		 friend_group="PLAYERS" 
+		 turn_speed="2.5" 
+		 move_speed="10" 
+		 scale="1" 
+		 model_idle="models/power-cell.xml" 
+		 bitmap_shadow="shadows/table-round-shadow.png" 
+		 shadow_angle="0" 
+		 shadow_alpha="0.75" 
+		 shadow_scale="0.5" 
+		 hit_points="500" 
+		 damage="0.0" 
+		/>
+
+		<node id="COLLIDER" collider_generation_method="AUTOMATIC" />
+		<node id="CUSTOM_DATA" 
+		 explosion_damage="80" 
+		 explosion_range="150" 
+		 damaged_effect="effects/damaged_explosive.xml" 
+		 damaged_effect_interval="0.2" 
+		 damaged_effect_health_threshold="0.8" 
+		 self_destruct_health_threshold="0.05" 
+		 self_destruct_time_in_seconds="2.5" 
+		 sound_blow="sfx/explosive-going-to-blow" 
+		 interaction_type="powercell" 
+		 interaction_tip="PROTECT" 
+		/>
+
+	</array>
+
+	<array id="GIBS_EXPLOSION">
+		<node id="EXPLOSION_1" 
+		 model="" 
+		 model_group_1="LIGHTWALL,NONE,16,LIGHTWALL" 
+		 model_group_2="OBJECT_SMALL,NONE,2,NONE" 
+		 model_group_3="OBJECT_LARGE,NONE,3,NONE" 
+		 model_group_4="METAL_SMALL,NONE,2,NONE" 
+		 model_group_5="METAL_LARGE,NONE,3,NONE" 
+		 model_group_6="METAL_MISC,NONE,2,OIL" 
+		 particle_effect_1="effects/explosion-explosive.xml" 
+		 death_animations="" 
+		/>
+
+	</array>
+</root>
