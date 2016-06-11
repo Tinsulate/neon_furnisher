@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <root>
+
+ <!-- TODO: Remove -->
 <array id="info">
  <node id="creator_program" value="NeonChrome" />
  <node id="creator_version" value="1.0.0.4" />
