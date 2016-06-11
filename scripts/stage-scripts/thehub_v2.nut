@@ -140,19 +140,14 @@ class Player
    
 }
 
-local level_timer = 0;
 
-local stage_width = 0;
-local stage_height = 0;
 
 local player = null;
 local player_handle = null;
 
 function OnGameStart()
 {
-     Game_NC_ShowNotification("ongamestart ", 1.4);
-    stage_width = Stage_GetWidth ()
-    stage_height = Stage_GetHeight ()
+    Game_NC_ShowNotification("ongamestart ", 1.4);
 
     player = Player();
 
@@ -189,7 +184,7 @@ function OnKeyDown(key)
 
 function OnUpdate(tdelta)
 {
-     level_timer += tdelta;
+
 }
  
 function OnDraw()
