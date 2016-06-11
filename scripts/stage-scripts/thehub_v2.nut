@@ -141,10 +141,13 @@ class Player
         if(trySpendCredits(objects[object].price))
         {
             local ob_pos = StageObject_GetStagePosition(playerhandle);     
-            local ob_angle = Actor_GetTargetAngle(playerhandle);     
+            local ob_angle = Actor_GetTargetAngle(playerhandle);
+
+            local x2 = round(Stage_GetCellSize()*cos(deg2rad(ob_angle)), 1);
+            local y2 = round(Stage_GetCellSize()*sin(deg2rad(ob_angle)), 1);
 
             Game_NC_ShowNotification(getCurrentBuildItemDisplayName() + " -C" + getCurrentBuildItemPrice(), 1.4);
-            local new_soh2 = Stage_CreateActor(object, ob_pos[0], ob_pos[1], 0);
+            local new_soh2 = Stage_CreateActor(object, ob_pos[0] +x2, ob_pos[1]+y2, 0);
             StageObject_SetAngle(new_soh2, ob_angle);
         
             Actor_SetTargetAngle(new_soh2, ob_angle);
@@ -155,23 +158,22 @@ class Player
 
     function buildPreModel(){
          if(!playerhandle) return;
-         if(new_soh){
-
           local ob_pos = StageObject_GetStagePosition(playerhandle);
           local ob_angle = Actor_GetTargetAngle(playerhandle);
-          StageObject_SetPosition (new_soh,ob_pos[0],ob_pos[1],ob_pos[2]+10);
-          StageObject_SetTargetAngle(new_soh, ob_angle);
+
+          local x2 = round(Stage_GetCellSize()*cos(deg2rad(ob_angle)), 1);
+          local y2 = round(Stage_GetCellSize()*sin(deg2rad(ob_angle)), 1);
+
+         if(new_soh){
+
+          StageObject_SetPosition (new_soh,ob_pos[0]+x2,ob_pos[1]+y2,ob_pos[2]+10);
          }else {
 
         local object = getCurrentBuildItemModel();
-
-        local ob_pos = StageObject_GetStagePosition(playerhandle);
-        local ob_angle = Actor_GetTargetAngle(playerhandle);
         new_soh = Stage_CreateActor(object, ob_pos[0], ob_pos[1], 0);
-        StageObject_SetAngle(new_soh, ob_angle);
 
-        Actor_SetTargetAngle(new_soh, ob_angle);
         }
+        Actor_SetTargetAngle(new_soh, ob_angle);
 
     }
    
