@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+
+	<array id="ACTOR">
+		<node id="PARAMETERS" 
+		 physics_material="STEEL_ENEMY" 
+		 name="Proximity mine" 
+		 renderer="Mine" 
+		 ai="Mine" 
+		 friend_group="PLAYER_FRIENDS" 
+		 turn_speed="2.5" 
+		 move_speed="10" 
+		 aggro_radius="80" 
+		 scale="1" 
+		 model_idle="models/proximity-mine.xml" 
+		 effect_on_death="effects/explosion-generic-medium.xml" 
+		 bitmap_shadow="shadows/shadow-circle.png" 
+		 shadow_angle="0" 
+		 shadow_alpha="0.75" 
+		 shadow_scale="0.7" 
+		 hit_points="1" 
+		/>
+
+		<node id="COLLIDER" 
+		 collider_generation_method="AUTOMATIC" 
+		 generate_convex_hull_for_edges="true" 
+		/>
+
+		<node id="CUSTOM_DATA" 
+		 field_of_vision="360" 
+		 explosion_damage="96" 
+		 explosion_range="120" 
+		 sound="sfx/proximity_mine_beep" 
+		 reaction_time="0.3" 
+		 is_mine="true" 
+		/>
+
+	</array>
+</root>

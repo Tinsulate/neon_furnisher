@@ -1,7 +1,7 @@
  
 Include("scripts/libs/lib_dungeonlib.nut");
 
- local objects = {"actors/autoturret-playerowned.xml":{"price":100, "display_name":"Auto Turret"},"actors/ability-mine.xml":{"price":15, "display_name":"Mine"}};
+ local objects = {"actors/autoturret-playerowned.xml":{"price":100, "display_name":"Auto Turret", "pre_build_model":"actors/autoturret-playerowned-ghost.xml"},"actors/ability-mine.xml":{"price":15, "display_name":"Mine", "pre_build_model":"actors/autoturret-playerowned-ghost.xml"}};
  
 
 
@@ -11,11 +11,12 @@ class Player
     cumulative_credits = 0;
     playerhandle = null;
     build_item = -1;
+    new_soh = null;
     
     constructor()
     {
         credits = 300;
-        nextBuildItem()
+
     }
     
     function nextBuildItem()
@@ -29,7 +30,7 @@ class Player
             build_item++;
             if(build_item > objects.len()-1)
             {
-                build_item = 0;
+                build_item = -1;
             }
         }
     }
@@ -84,6 +85,20 @@ class Player
         }
         return 0;
     }
+
+    function getCurrentBuildItemModel()
+    {
+        local t = 0;
+        foreach(k,v in objects)
+        {
+            if(t == build_item)
+            {
+                return v.pre_build_model;
+            }
+            t++;
+        }
+        return 0;
+    }
     
     function getCurrentBuildItemDisplayName()
     {
@@ -129,13 +144,35 @@ class Player
             local ob_angle = Actor_GetTargetAngle(playerhandle);     
 
             Game_NC_ShowNotification(getCurrentBuildItemDisplayName() + " -C" + getCurrentBuildItemPrice(), 1.4);
-            local new_soh = Stage_CreateActor(object, ob_pos[0], ob_pos[1], 0);
-            StageObject_SetAngle(new_soh, ob_angle);
+            local new_soh2 = Stage_CreateActor(object, ob_pos[0], ob_pos[1], 0);
+            StageObject_SetAngle(new_soh2, ob_angle);
         
-            Actor_SetTargetAngle(new_soh, ob_angle);
+            Actor_SetTargetAngle(new_soh2, ob_angle);
         } else {
              Game_NC_ShowNotification("Not enough credits!", 1.4);
         }
+    }
+
+    function buildPreModel(){
+         if(!playerhandle) return;
+         if(new_soh){
+
+          local ob_pos = StageObject_GetStagePosition(playerhandle);
+          local ob_angle = Actor_GetTargetAngle(playerhandle);
+          StageObject_SetPosition (new_soh,ob_pos[0],ob_pos[1],ob_pos[2]+10);
+          StageObject_SetTargetAngle(new_soh, ob_angle);
+         }else {
+
+        local object = getCurrentBuildItemModel();
+
+        local ob_pos = StageObject_GetStagePosition(playerhandle);
+        local ob_angle = Actor_GetTargetAngle(playerhandle);
+        new_soh = Stage_CreateActor(object, ob_pos[0], ob_pos[1], 0);
+        StageObject_SetAngle(new_soh, ob_angle);
+
+        Actor_SetTargetAngle(new_soh, ob_angle);
+        }
+
     }
    
 }
@@ -191,7 +228,7 @@ function OnDraw()
 {
 	//Debug();
     //DebugMeter();
-    NX_DrawRect(10, 10, 300, 300);
+    //NX_DrawRect(10, 10, 300, 300);
  
     //NX_SetDepthDefault(0);
 	//NX_DrawRect(10, 10, 300, 300);
@@ -199,6 +236,10 @@ function OnDraw()
     if(player)
     {
         player.draw(330, 70);
+    }
+
+    if (player.getCurrentBuildItem() != null){
+        player.buildPreModel()
     }
     
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+
+	<array id="ACTOR">
+		<node id="PARAMETERS" 
+		 physics_material=""
+		 name="Auto Turret" 
+		 renderer="Mine"
+		 ai="Dummy"
+		 weapon="weapons/autoturret-heavy-minigun.xml" 
+		 friend_group="GIB"
+		 turn_speed="0"
+	  	 additional_flags="INDESTRUCTIBLE"
+	     move_speed="0"
+		 dampening_factor="8.0"
+		 restitution_coefficient="0.15" 
+		 scale="1.0" 
+		 aggro_radius="0"
+		 friend_avoidance_radius="10" 
+		 model_idle="models/autoturret.xml" 
+		 bitmap_shadow="shadows/shadow-circle-large.png" 
+		 shadow_angle="0" 
+		 shadow_scale="0"
+		 shadow_alpha="0.75"
+		 hit_points="150" 
+		 mass="5000" 
+		 walk_forward_animation="models/animations/autoturret_rig-autoturret_open.xml" 
+		 walk_backward_animation="models/animations/autoturret_rig-autoturret_close.xml" 
+		/>
+
+		<node id="COLLIDER"
+			  collider_generation_method="AUTOMATIC"
+			  cylinder_radius="0"
+				/>
+
+		<node id="CUSTOM_DATA" 
+		 field_of_vision="60" 
+		 reaction_delay="0.3" 
+		 clip_size_multiplier="0.5" 
+		 sound_collection=""
+		 actor_class="robotic" 
+		 uses_path_finding="false" 
+		 accuracy_spread_multiplier="2.0" 
+		 rebound_speed_multiplier="1.0" 
+		/>
+
+	</array>
+
+</root>
