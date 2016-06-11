@@ -5,7 +5,8 @@
  <node id="creator_version" value="1.0.0.4" />
  <node id="cells_width" value="55" />
  <node id="cells_height" value="68" />
- <node id="ambient_light" r="0.18" g="0.18" b="0.17" />
+ <node id="ambient_light" r="0.18" g="0.18" b="0.40" />
+ <node id="script" value="scripts/stage-scripts/thehub_v2.nut" />
  <node id="key_values" 
  />
 </array>

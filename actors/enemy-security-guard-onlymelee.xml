@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <root>
-
+<!-- TODO: Remove -->
 	<array id="ACTOR">
 		<node id="PARAMETERS" 
 		 physics_material="FLESH" 

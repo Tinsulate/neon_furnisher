@@ -286,7 +286,6 @@ function GenerateLevel()
         casks_opened = ceil((num_deaths.tofloat() + 1) - num_spawn_casks.tofloat() * (vault - 1)).tointeger();
     }
     NX_Print(num_deaths + " vault " + vault + " casks opened " + casks_opened + " spawn casks " + num_spawn_casks);
-    // TODO: Handle coop mode better
     local is_coop = Profile_GetValue("CURRENT_GAME", "is_coop", "value") != null;
     if (is_coop)
     {
@@ -403,7 +402,7 @@ function GenerateLevel()
     } else {
         NX_Popup("No info display!!");
     }
-    
+    Stage_SetStageScript("scripts/stage-scripts/thehub_v2.nut");
     Stage_SetName ("Home")
 }
 
