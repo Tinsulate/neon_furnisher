@@ -29,8 +29,10 @@
 		/>
 
 		<node id="COLLIDER"
+			  cylinder_max_z="0"
+			  cylinder_min_z="-100"
+			  cylinder_radius="25"
 			  collider_generation_method="AUTOMATIC"
-			  cylinder_radius="0"
 				/>
 
 		<node id="CUSTOM_DATA" 
