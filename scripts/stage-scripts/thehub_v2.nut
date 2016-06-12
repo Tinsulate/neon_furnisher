@@ -13,11 +13,11 @@ class Player
     playerhandle = null;
     build_item = -1;
     new_soh = null;
+    premodel_position = null;
     
     constructor()
     {
         credits = 300;
-
     }
 
     function isItemSelected(){
@@ -132,14 +132,16 @@ class Player
     
     function draw(x, y)
     {
+        premodel_position = calcPreModelPosition();
+        updatePreModelPosition();
+
         NX_SetDepthDefault(10);
         NX_SetColor(1,1,1);
         NX_SetAlpha(1);
-    
+
         NX_SetBlend(NX_BLEND_NORMAL);
         NX_SetTextTransform (1, 1, 0);
         NX_SetTextAlign (NX_ALIGN_LEFT);
-  
         NX_DrawText ("fonts/medium.mft", x, y, "C" +  credits + " Build: " +  getCurrentBuildItemDisplayName() + " C" + getCurrentBuildItemPrice());
  
     }
@@ -158,10 +160,7 @@ class Player
         
         if(trySpendCredits(objects[object].price))
         {
-            local ob_pos = StageObject_GetStagePosition(playerhandle);     
-            local ob_angle = Actor_GetTargetAngle(playerhandle);
-
-            local p = newPosition(ob_pos,ob_angle,1);
+            local p = premodel_position;
 
             Game_NC_ShowNotification(getCurrentBuildItemDisplayName() + " -C" + getCurrentBuildItemPrice(), 1.4);
             local new_soh2 = Stage_CreateActor(object, p[0], p[1], 0);
@@ -173,23 +172,45 @@ class Player
         }
     }
 
+    function getPremodelPosition(){
+        return premodel_position;
+    }
+
+    function calcPreModelPosition(){
+         if(!playerhandle) return;
+         local ob_pos = StageObject_GetStagePosition(playerhandle);
+         local ob_angle = Actor_GetTargetAngle(playerhandle);
+
+         return newPosition(ob_pos,ob_angle,1);
+    }
+
+    function setPreModelPosition(new_position){
+        premodel_position = new_position;
+    }
+
     function buildPreModel(){
+         NX_Print("buidl pre model");
+
+         if(new_soh) return;
          if(!playerhandle) return;
          if(!isItemSelected()) return;
 
-          local ob_pos = StageObject_GetStagePosition(playerhandle);
-          local ob_angle = Actor_GetTargetAngle(playerhandle);
+         local p = premodel_position;
 
-          local p = newPosition(ob_pos,ob_angle,1);
+         local object = getCurrentBuildItemModel();
+         new_soh = Stage_CreateActor(object, p[0], p[1], p[2]);
+    }
 
-          if(new_soh != null){
-              StageObject_SetPosition (new_soh,p[0],p[1],p[2]+10);
-          }else {
-              local object = getCurrentBuildItemModel();
-              new_soh = Stage_CreateActor(object, p[0], p[1], p[2]);
-           }
-          StageObject_SetAngle(new_soh, ob_angle);
-          Actor_SetTargetAngle(new_soh, ob_angle);
+    //angle and position
+    function updatePreModelPosition(){
+        if(!new_soh || !premodel_position) return;
+
+        local p = premodel_position;
+        StageObject_SetPosition (new_soh,p[0],p[1],p[2]+10);
+
+        local ob_angle = Actor_GetTargetAngle(playerhandle);
+        StageObject_SetAngle(new_soh, ob_angle);
+        Actor_SetTargetAngle(new_soh, ob_angle);
     }
 
     // amount of 1 is roughly one cell
@@ -247,44 +268,56 @@ function OnKeyDown(key)
 
 function OnUpdate(tdelta)
 {
+   NX_Print("onupdate " + tdelta);
 
 }
 
-
- 
 function OnDraw()
 {
 	//Debug();
     //DebugMeter();
-    //NX_DrawRect(10, 10, 300, 300);
+
  
-    //NX_SetDepthDefault(0);
+    NX_SetDepthDefault(0);
 	//NX_DrawRect(10, 10, 300, 300);
     if(player)
     {
         player.draw(330, 70);
-            //player.isItemSelected() &&
-            if (player.getCurrentBuildItem() != null){
-                 // We wouldn't have to build premodel only to potentially remove it a bit later - wee could test for obstacles with only type
-                 player.buildPreModel();
-                 local pm = player.getPreModel();
-                    if (pm != null){
-                        local pm_pos = StageObject_GetPosition(pm);
-                        local pm_dim = ActorType_GetBoundingBoxDimensions (Actor_GetActorType(pm));
-                        local cobjects = Stage_QueryStageObjectsInsideRectangle(pm_pos[0],pm_pos[1] pm_dim[0], pm_dim[1]);
-                        local candraw = true;
-                        foreach(handle in cobjects)
-                        {
-                            local atype = Actor_GetActorType(handle);
-                            candraw = getTypeWithName(atype);
+            if (player.isItemSelected() && player.getPremodelPosition() != null){
 
-                            if (!candraw && pm != null){
-                               Stage_DeleteStageObject(pm);
-                               player.removePreModel();
-                               break;
-                            }
-                        }
+                local candraw = true;
+                local pm_pos = player.getPremodelPosition();
+                local offset = ActorType_GetBoundingBoxCenterOffset(player.getCurrentBuildItemModel());
+
+                local pm_dim = ActorType_GetBoundingBoxDimensions(player.getCurrentBuildItemModel());
+
+                NX_Print("pm_pos " + pm_pos[0] + ","+ pm_pos[1]);
+                NX_Print("pm_dim " + pm_dim[0] + ","+ pm_dim[1]);
+                local cobjects = Stage_QueryStageObjectsInsideRectangle(pm_pos[0],pm_pos[1], pm_dim[0]+20, pm_dim[1]+20);
+                // Pitäisi olla containsForbidden(cobjects);
+
+                foreach(handle in cobjects)
+                {
+                    local atype = Actor_GetActorType(handle);
+
+                    candraw = getTypeWithName(atype);
+
+                    if (!candraw && player.getPreModel() != null){
+                       NX_Print("Not drawn! " + cobjects.len());
+                       Stage_DeleteStageObject(player.getPreModel());
+                       player.removePreModel();
                     }
+
+                    if (!candraw){
+                       break;
+                    }
+                }
+                if (candraw && player.getPreModel() == null){
+                    NX_Print("drawn! " + cobjects.len());
+                    player.buildPreModel();
+                    player.updatePreModelPosition();
+                }
+
             }
     }
 
@@ -295,12 +328,12 @@ function OnDraw()
 function getTypeWithName(atype)
 {
     //if there is an object which is not one of the types below, building is forbidden
-    if(atype.find("cable") == null && atype.find("ghost") == null)
+    if(atype.find("cable") != null || atype.find("ghost") != null)
     {
-        return false;
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 function ReplaceItem(what, with = null)
