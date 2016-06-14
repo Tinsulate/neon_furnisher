@@ -12,8 +12,8 @@ class Player
     cumulative_credits = 0;
     playerhandle = null;
     build_item = -1;
-    premodel = null;
-    premodel_position = null;
+    carried_model = null;
+    carried_position = null;
     angle_offset = 0;
     
     constructor()
@@ -125,7 +125,9 @@ class Player
     //TODO: siirrä helperiin
     function actors_containOtherThan(actors, actor_type_strings)
     {
+        NX_Print("h " + actors + " " +actors.len());
         if (!actors || actors.len() == 0) return false;
+        NX_Print("h1");
         if (!actor_type_strings || actor_type_strings.len() == 0) return true;
 
         NX_Print("h2");
@@ -133,7 +135,6 @@ class Player
         {
             NX_Print("inner " + handle);
             local atype = Actor_GetActorType(handle);
-
             if (!atype) continue;
 
             local sotype = StageObject_GetType(handle);
@@ -152,19 +153,19 @@ class Player
             //failfast,
             if (found) {
              NX_Print("found" + handle);
-            return true;}
+            return true;
+            }
 
         }
         NX_Print("notokaytodraw");
         return false;
     }
 
-
-    function draw(x, y)
+    function drawCarried()
     {
-        premodel_position = calcPreModelPosition();
+        carried_position = calcCarriedModelPosition();
 
-        if (!isItemSelected() || !premodel_position) return;
+        if (!isItemSelected() || !carried_position) return;
 
         NX_Print("1");
         //TODO: unused
@@ -173,29 +174,36 @@ class Player
         NX_Print("2");
         //TODO: isOkToPlaceHere(actor_type, position, bounds_buffer, allowed_types)
         local pm_dim = ActorType_GetBoundingBoxDimensions(getCurrentBuildItemModel());
-        local pm_pos = premodel_position;
+        local pm_pos = carried_position;
 
-        NX_Print("3");
+        NX_Print("3 " + pm_pos[0] + " " + pm_pos[1]);
         local cobjects = Stage_QueryStageObjectsInsideRectangle(pm_pos[0],pm_pos[1], pm_dim[0]+10, pm_dim[1]+10);
         NX_Print("3.5 " + cobjects);
         local candraw  = !actors_containOtherThan(cobjects, ["cable", "ghost"]);
 
 
-        NX_Print("4" + candraw + " " + premodel);
-        if (!candraw && premodel)
+        NX_Print("4" + candraw + " " + carried_model);
+        if (!candraw && carried_model)
         {
            NX_Print("Not drawn! " + cobjects.len());
-           Stage_DeleteStageObject(premodel);
-           premodel = null;
+           Stage_DeleteStageObject(carried_model);
+           carried_model = null;
         }
         NX_Print("5");
         if (candraw)
         {
-          buildPreModel();
-          updatePreModelPosition();
+          buildCarriedModel();
+          updateCarriedModelPosition();
         }
 
         NX_Print("6");
+
+    }
+
+    function draw(x, y)
+    {
+
+        drawCarried();
 
         // TODO: Are all these needed:
         NX_SetDepthDefault(10);
@@ -222,7 +230,7 @@ class Player
         
         if(trySpendCredits(objects[object].price))
         {
-            local p = premodel_position;
+            local p = carried_position;
 
             Game_NC_ShowNotification(getCurrentBuildItemDisplayName() + " -C" + getCurrentBuildItemPrice(), 1.4);
             local new_soh2 = Stage_CreateActor(object, p[0], p[1], 0);
@@ -234,7 +242,7 @@ class Player
         }
     }
 
-    function calcPreModelPosition(){
+    function calcCarriedModelPosition(){
          if(!playerhandle) return;
          local ob_pos = StageObject_GetStagePosition(playerhandle);
          local ob_angle = Actor_GetTargetAngle(playerhandle);
@@ -242,33 +250,33 @@ class Player
          return newPosition(ob_pos,ob_angle,1);
     }
 
-    function setPreModelPosition(new_position){
-        premodel_position = new_position;
+    function setCarriedModelPosition(new_position){
+        carried_position = new_position;
     }
 
-    function buildPreModel(){
+    function buildCarriedModel(){
          NX_Print("buidl pre model");
          // TODO: here is abug
-         if(premodel) return;
+         if(carried_model) return;
          if(!playerhandle) return;
          if(!isItemSelected()) return;
 
-         local p = premodel_position;
+         local p = carried_position;
 
          local object = getCurrentBuildItemModel();
-         premodel = Stage_CreateActor(object, p[0], p[1], p[2]);
+         carried_model = Stage_CreateActor(object, p[0], p[1], p[2]);
     }
 
     //angle and position
-    function updatePreModelPosition(){
-        if(!premodel || !premodel_position) return;
+    function updateCarriedModelPosition(){
+        if(!carried_model || !carried_position) return;
 
-        local p = premodel_position;
-        StageObject_SetPosition (premodel,p[0],p[1],p[2]+10);
+        local p = carried_position;
+        StageObject_SetPosition (carried_model,p[0],p[1],p[2]+10);
 
         local ob_angle = Actor_GetTargetAngle(playerhandle) + angle_offset;
-        StageObject_SetAngle(premodel, ob_angle);
-        Actor_SetTargetAngle(premodel, ob_angle);
+        StageObject_SetAngle(carried_model, ob_angle);
+        Actor_SetTargetAngle(carried_model, ob_angle);
     }
 
     // TODO: Move to helper
@@ -315,7 +323,7 @@ function OnKeyDown(key)
     {
        player.tryPurchaseCurrent();
     }
-     if(key == "X")
+    if(key == "X")
     {
        player.nextBuildItem();
     }
