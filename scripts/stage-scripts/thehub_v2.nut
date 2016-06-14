@@ -13,7 +13,9 @@ class Player
     playerhandle = null;
     build_item = -1;
     carried_model = null;
+    carried_type = null
     carried_position = null;
+    candraw = true;
     angle_offset = 0;
     
     constructor()
@@ -21,26 +23,27 @@ class Player
      credits = 300;
     }
 
-    function isItemSelected(){
-     if (build_item > -1){
-      return true;
-     }
-     return false;
-    }
     
     function nextBuildItem()
     {
-        if(build_item == -1)
-        {
-            build_item = 0;
+        NX_Print("Nextbuilditem" + carried_model);
+
+        build_item++;
+        if (carried_model){
+         Stage_DeleteStageObject(carried_model);
+         NX_Print("Deleted carry from stage, carried_model: " + carried_model);
+         carried_model = null;
+         carried_type = null;
         }
-        else 
+        if(build_item > objects.len()-1)
         {
-            build_item++;
-            if(build_item > objects.len()-1)
-            {
-                build_item = -1;
-            }
+            build_item = -1;
+        }else
+        {
+         carried_model =  buildCarriedModel(getCurrentBuildItemModel());
+         carried_type = Actor_GetActorType(carried_model)
+         updateCarriedModelPosition();
+         NX_Print("built new " + carried_model);
         }
     }
 
@@ -161,48 +164,67 @@ class Player
         return false;
     }
 
+
     function drawCarried()
     {
+
         carried_position = calcCarriedModelPosition();
 
-        if (!isItemSelected() || !carried_position) return;
+        if (!carried_type || !carried_position) return;
+        //NX_Print("0: " + carried_position + " " + carried_model);
 
-        NX_Print("1");
+        //NX_Print("1");
         //TODO: unused
-        local offset = ActorType_GetBoundingBoxCenterOffset(getCurrentBuildItemModel());
+        //local offset = ActorType_GetBoundingBoxCenterOffset(carried_model);
 
-        NX_Print("2");
+        //NX_Print("2");
         //TODO: isOkToPlaceHere(actor_type, position, bounds_buffer, allowed_types)
-        local pm_dim = ActorType_GetBoundingBoxDimensions(getCurrentBuildItemModel());
-        local pm_pos = carried_position;
 
-        NX_Print("3 " + pm_pos[0] + " " + pm_pos[1]);
-        local cobjects = Stage_QueryStageObjectsInsideRectangle(pm_pos[0],pm_pos[1], pm_dim[0]+10, pm_dim[1]+10);
+        NX_Print(" fuuuu" + carried_model);
+
+        local cobjects = getActorsInsideModelBounds(carried_type,carried_position, 10);
         NX_Print("3.5 " + cobjects);
-        local candraw  = !actors_containOtherThan(cobjects, ["cable", "ghost"]);
+        candraw  = !actors_containOtherThan(cobjects, ["cable", "ghost"]);
 
-
-        NX_Print("4" + candraw + " " + carried_model);
-        if (!candraw && carried_model)
+        //NX_Print("4" + candraw + " " + carried_model);
+        if (!candraw)
         {
            NX_Print("Not drawn! " + cobjects.len());
            Stage_DeleteStageObject(carried_model);
            carried_model = null;
+           NX_Print("Deleted, carried model: " + carried_model);
         }
         NX_Print("5");
         if (candraw)
         {
-          buildCarriedModel();
-          updateCarriedModelPosition();
+          if (!carried_model && carried_type){
+          NX_Print("before crash, mo " + carried_model + " , ty" + carried_type);
+           carried_model = buildCarriedModel(carried_type);
+          }
+          if (carried_model){
+          NX_Print("before crash2 , mo" + carried_model + " ,ty" + carried_type);
+            updateCarriedModelPosition();
+          }
+
         }
 
         NX_Print("6");
 
     }
 
+    function getActorsInsideModelBounds(atype, center, bounds_buffer){
+        NX_Print(" alku ");
+         local pm_dim = ActorType_GetBoundingBoxDimensions(atype);
+         NX_Print(" sitten ");
+         local pm_pos = center;
+        NX_Print(" ja taas ");
+         NX_Print(pm_dim);
+         NX_Print("3 " + atype + " "+  pm_pos[0] + " " + pm_pos[1] + " " + pm_dim[0] + " "+ pm_dim[1] + " " + bounds_buffer);
+         return Stage_QueryStageObjectsInsideRectangle(pm_pos[0],pm_pos[1], pm_dim[0]+bounds_buffer, pm_dim[1]+bounds_buffer);
+    }
+
     function draw(x, y)
     {
-
         drawCarried();
 
         // TODO: Are all these needed:
@@ -216,13 +238,78 @@ class Player
         NX_DrawText ("fonts/medium.mft", x, y, "C" +  credits + " Build: " +  getCurrentBuildItemDisplayName() + " C" + getCurrentBuildItemPrice());
  
     }
-    
-    function tryPurchaseCurrent()
-    {
-        if (isItemSelected() == true){
+
+     function isItemSelected(){
+         if (build_item > -1){
+          return true;
+         }
+         return false;
+     }
+
+    function pickUpButtonPressed(){
+        if (isItemSelected()){
             tryPurchase(getCurrentBuildItem());
+        }else{
+            if (!carried_model){
+             tryPickUp();
+            } //TODO
+
         }
     }
+    
+    function tryPickUp()
+    {
+      //local cobjects = getActorsInsideModelBounds("actors/armchair.xml" ,carried_position,5);
+      //actors_findTopmost(cobjects, ["cable", "wall"])
+      //carried_model = topmost;
+
+    }
+
+     function actors_findTopmost(actors, actor_type_strings){
+            NX_Print("top " + actors + " " +actors.len());
+            if (!actors || actors.len() == 0) return false;
+            NX_Print("top1");
+
+            local result = {};
+
+             foreach(handle in actors)
+             {
+                NX_Print("innertop " + handle);
+                local atype = Actor_GetActorType(handle);
+                if (!atype) continue;
+
+                local sotype = StageObject_GetType(handle);
+
+                NX_Print("innertop2 " + handle);
+
+                local ok_to_pick = true;
+                foreach(string in actor_type_strings)
+                {
+                  NX_Print("topcheck " + atype);
+                  if (atype.find(string)){
+                   ok_to_pick = false;
+                  }
+                }
+                NX_Print("topafter " + ok_to_pick);
+                if (!ok_to_pick) continue;
+
+                local xyz = StageObject_GetPosition(handle);
+
+                NX_Print("topxyz " + xyz);
+
+                if (!result.topz || result.topz < xyz[2])
+                {
+                    result.topz = xyz[2];
+                    result.tophandle = handle
+                }
+             }
+             NX_Print("topreturn " + xyz);
+             return result.tophandle;
+
+        }
+
+
+
     
     function tryPurchase(object)
     {
@@ -250,21 +337,15 @@ class Player
          return newPosition(ob_pos,ob_angle,1);
     }
 
-    function setCarriedModelPosition(new_position){
-        carried_position = new_position;
-    }
-
-    function buildCarriedModel(){
+    function buildCarriedModel(atype){
          NX_Print("buidl pre model");
-         // TODO: here is abug
-         if(carried_model) return;
+
          if(!playerhandle) return;
-         if(!isItemSelected()) return;
 
          local p = carried_position;
 
-         local object = getCurrentBuildItemModel();
-         carried_model = Stage_CreateActor(object, p[0], p[1], p[2]);
+         local object = atype;
+         return Stage_CreateActor(object, p[0], p[1], p[2]);
     }
 
     //angle and position
@@ -272,9 +353,13 @@ class Player
         if(!carried_model || !carried_position) return;
 
         local p = carried_position;
-        StageObject_SetPosition (carried_model,p[0],p[1],p[2]+10);
+        NX_Print("before set position, " + carried_model + " , " + p[0] + " " + p[1] + " " + (p[2]+10));
+        StageObject_SetPosition (carried_model,p[0],p[1],(p[2]+10));
+
+        NX_Print("before get target angle");
 
         local ob_angle = Actor_GetTargetAngle(playerhandle) + angle_offset;
+        NX_Print("before segt angle " + carried_model + " , angle " + ob_angle);
         StageObject_SetAngle(carried_model, ob_angle);
         Actor_SetTargetAngle(carried_model, ob_angle);
     }
@@ -317,11 +402,10 @@ function OnActorBirth(so_handle)
 
 function OnKeyDown(key)
 {
-    Game_NC_ShowNotification("onKeyDown: ", 1.4);
 
     if(key == "C")
     {
-       player.tryPurchaseCurrent();
+       player.pickUpButtonPressed();
     }
     if(key == "X")
     {
@@ -333,13 +417,11 @@ function OnKeyDown(key)
 
 function OnUpdate(tdelta)
 {
-   NX_Print("onupdate " + tdelta);
 
 }
 
 function OnDraw()
 {
-     NX_Print("ondraw ");
     if(!player) return;
 
     player.draw(330, 70);
