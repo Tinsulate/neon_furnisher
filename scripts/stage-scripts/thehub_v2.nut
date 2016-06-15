@@ -1,6 +1,7 @@
  
 Include("scripts/libs/lib_dungeonlib.nut");
 Include("scripts/libs/lib_rect.nut");
+Include("scripts/libs/helper.nut");
 
 local objects = {"actors/autoturret-playerowned.xml":{"price":100, "display_name":"Auto Turret", "pre_build_model":"actors/autoturret-playerowned-ghost.xml"},"actors/ability-mine.xml":{"price":15, "display_name":"Mine", "pre_build_model":"actors/autoturret-playerowned-ghost.xml"}};
  
@@ -125,44 +126,7 @@ class Player
         return "";
     }
 
-    //TODO: siirrä helperiin
-    function actors_containOtherThan(actors, actor_type_strings)
-    {
-        NX_Print("h " + actors + " " +actors.len());
-        if (!actors || actors.len() == 0) return false;
-        NX_Print("h1");
-        if (!actor_type_strings || actor_type_strings.len() == 0) return true;
 
-        NX_Print("h2");
-        foreach(handle in actors)
-        {
-            NX_Print("inner " + handle);
-            local atype = Actor_GetActorType(handle);
-            if (!atype) continue;
-
-            local sotype = StageObject_GetType(handle);
-
-            //include in result if allowed not found
-            local found = true;
-            foreach(string in actor_type_strings)
-            {
-              NX_Print("check " + atype);
-              NX_Print("check2 " + sotype);
-              if (atype.find(string)){
-               found = false;
-              }
-            }
-
-            //failfast,
-            if (found) {
-             NX_Print("found" + handle);
-            return true;
-            }
-
-        }
-        NX_Print("notokaytodraw");
-        return false;
-    }
 
 
     function drawCarried()
@@ -212,16 +176,7 @@ class Player
 
     }
 
-    function getActorsInsideModelBounds(atype, center, bounds_buffer){
-        NX_Print(" alku ");
-         local pm_dim = ActorType_GetBoundingBoxDimensions(atype);
-         NX_Print(" sitten ");
-         local pm_pos = center;
-        NX_Print(" ja taas ");
-         NX_Print(pm_dim);
-         NX_Print("3 " + atype + " "+  pm_pos[0] + " " + pm_pos[1] + " " + pm_dim[0] + " "+ pm_dim[1] + " " + bounds_buffer);
-         return Stage_QueryStageObjectsInsideRectangle(pm_pos[0],pm_pos[1], pm_dim[0]+bounds_buffer, pm_dim[1]+bounds_buffer);
-    }
+
 
     function draw(x, y)
     {
@@ -236,7 +191,6 @@ class Player
         NX_SetTextTransform (1, 1, 0);
         NX_SetTextAlign (NX_ALIGN_LEFT);
         NX_DrawText ("fonts/medium.mft", x, y, "C" +  credits + " Build: " +  getCurrentBuildItemDisplayName() + " C" + getCurrentBuildItemPrice());
- 
     }
 
      function isItemSelected(){
@@ -249,66 +203,22 @@ class Player
     function pickUpButtonPressed(){
         if (isItemSelected()){
             tryPurchase(getCurrentBuildItem());
+        }else
+        if (!carried_model){
+         tryPickUp();
         }else{
-            if (!carried_model){
-             tryPickUp();
-            } //TODO
-
+         tryPutDown();
         }
     }
     
     function tryPickUp()
     {
       //local cobjects = getActorsInsideModelBounds("actors/armchair.xml" ,carried_position,5);
-      //actors_findTopmost(cobjects, ["cable", "wall"])
+      //local topmost = actors_findTopmost(cobjects, ["cable", "wall"])
       //carried_model = topmost;
+      //carried_model = Actor_GetActorType(topmost);
 
     }
-
-     function actors_findTopmost(actors, actor_type_strings){
-            NX_Print("top " + actors + " " +actors.len());
-            if (!actors || actors.len() == 0) return false;
-            NX_Print("top1");
-
-            local result = {};
-
-             foreach(handle in actors)
-             {
-                NX_Print("innertop " + handle);
-                local atype = Actor_GetActorType(handle);
-                if (!atype) continue;
-
-                local sotype = StageObject_GetType(handle);
-
-                NX_Print("innertop2 " + handle);
-
-                local ok_to_pick = true;
-                foreach(string in actor_type_strings)
-                {
-                  NX_Print("topcheck " + atype);
-                  if (atype.find(string)){
-                   ok_to_pick = false;
-                  }
-                }
-                NX_Print("topafter " + ok_to_pick);
-                if (!ok_to_pick) continue;
-
-                local xyz = StageObject_GetPosition(handle);
-
-                NX_Print("topxyz " + xyz);
-
-                if (!result.topz || result.topz < xyz[2])
-                {
-                    result.topz = xyz[2];
-                    result.tophandle = handle
-                }
-             }
-             NX_Print("topreturn " + xyz);
-             return result.tophandle;
-
-        }
-
-
 
     
     function tryPurchase(object)
